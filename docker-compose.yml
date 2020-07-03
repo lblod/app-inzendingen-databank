@@ -9,7 +9,7 @@ x-logging:
 
 services:
   toezicht-abb:
-    image: lblod/frontend-toezicht-abb:0.20.2
+    image: lblod/frontend-toezicht-abb:feature-tika-search
     links:
       - identifier:backend
     restart: always
@@ -118,10 +118,11 @@ services:
     restart: always
     logging: *default-logging
   search:
-    image: semtech/mu-search:0.6.1
+    image: semtech/mu-search:pr-15
     volumes:
        - ./config/search:/config
        - ./data/files:/data
+       - ./data/tika_cache:/cache
     environment:
       NUMBER_OF_THREADS: 4
       JRUBY_OPTIONS: "-J-Xmx8g" # overwrite for development
